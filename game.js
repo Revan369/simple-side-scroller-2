@@ -24,6 +24,23 @@ const platform = {
   color: '#2ecc71',
 };
 
+// Enemy object
+const enemy = {
+  x: Math.random() * (canvas.width - 20),
+  y: -20,
+  width: 20,
+  height: 20,
+  color: '#e74c3c',
+  speed: 2,
+  alive: true,
+};
+
+// Enemy movement direction
+let enemyDirection = 1; // 1 for right, -1 for left
+
+// Player lives
+let lives = 3;
+
 // Event listeners for key presses
 window.addEventListener('keydown', handleKeyDown);
 window.addEventListener('keyup', handleKeyUp);
@@ -79,10 +96,67 @@ function update() {
     player.jumping = false;
   }
 
+  // Move enemy
+  if (enemy.alive) {
+    enemy.y += enemy.speed;
+
+    // Check if enemy lands on the floor
+    if (enemy.y > canvas.height - enemy.height) {
+      enemy.y = canvas.height - enemy.height;
+
+      // Move enemy horizontally
+      enemy.x += enemyDirection * enemy.speed;
+
+      // Change direction if enemy reaches canvas boundaries
+      if (enemy.x < 0 || enemy.x + enemy.width > canvas.width) {
+        enemyDirection *= -1;
+      }
+    }
+
+    // Check for collision with player
+    if (
+      player.x < enemy.x + enemy.width &&
+      player.x + player.width > enemy.x &&
+      player.y < enemy.y + enemy.height &&
+      player.y + player.height > enemy.y
+    ) {
+      // Collision with player
+      if (player.y < enemy.y && !player.jumping) {
+        // Player landed on top of the enemy, kill the enemy
+        enemy.alive = false;
+        setTimeout(() => {
+          // Respawn a new enemy after a delay
+          enemy.alive = true;
+          enemy.y = -20;
+          enemy.x = Math.random() * (canvas.width - 20);
+          enemyDirection = 1; // Reset enemy direction
+        }, 1000); // You can adjust the respawn delay
+      } else {
+        // Collision with player
+        lives--;
+
+        if (lives <= 0) {
+          alert('Game Over!'); // You can replace this with your game over logic
+          location.reload(); // Reload the game
+        } else {
+          // Respawn the player and reset enemy position
+          player.x = 50;
+          player.y = canvas.height - 30;
+          // enemy.y = -20; // Comment this line to keep the enemy alive after colliding with the player
+          enemy.x = Math.random() * (canvas.width - 20);
+          enemyDirection = 1; // Reset enemy direction
+        }
+      }
+    }
+  }
+
   // Draw everything
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawRect(platform);
   drawRect(player);
+  if (enemy.alive) {
+    drawRect(enemy);
+  }
 
   // Repeat the update function
   requestAnimationFrame(update);
