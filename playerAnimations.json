@@ -1,0 +1,46 @@
+{
+    "idle": [
+      {"x": 0, "y": 0, "width": 32, "height": 32},
+      {"x": 32, "y": 0, "width": 32, "height": 32},
+      // Add coordinates for the remaining frames
+    ],
+    "run": [
+      // Add coordinates for the run animation frames
+    ],
+    "lightBow": [
+      // Add coordinates for the light bow animation frames
+    ],
+    "jumpRising": [
+      // Add coordinates for the jump rising animation frames
+    ],
+    "transitionToFall": [
+      // Add coordinates for the transition to fall animation frames
+    ],
+    "falling": [
+      // Add coordinates for the falling animation frames
+    ],
+    "landing": [
+      // Add coordinates for the landing animation frames
+    ],
+    "sliding": [
+      // Add coordinates for the sliding animation frames
+    ],
+    "lightAttackCombo": [
+      // Add coordinates for the light attack combo animation frames
+    ],
+    "heavyAttackCombo": [
+      // Add coordinates for the heavy attack combo animation frames
+    ],
+    "hurt1": [
+      // Add coordinates for the hurt-1 animation frames
+    ],
+    "hurt2": [
+      // Add coordinates for the hurt-2 animation frames
+    ],
+    "wallSlide": [
+      // Add coordinates for the wall slide animation frames
+    ],
+    "runningTurnaround": [
+      // Add coordinates for the running turnaround animation frames
+    ]
+  }

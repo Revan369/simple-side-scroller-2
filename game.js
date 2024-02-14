@@ -122,8 +122,10 @@ function update() {
     ) {
       // Collision with player
       if (player.y < enemy.y && !player.jumping) {
-        // Player landed on top of the enemy, kill the enemy
-        enemy.alive = false;
+        // Player landed on top of the enemy, bounce the player
+        player.jumping = true; // Trigger player jump
+        player.jumpCount = 0; // Reset jump count to initiate the bounce
+        enemy.alive = false; // Kill the enemy
         setTimeout(() => {
           // Respawn a new enemy after a delay
           enemy.alive = true;
